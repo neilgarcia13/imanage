@@ -24,17 +24,7 @@
 
 ?>
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iManage</title>
-  <link rel="stylesheet" href="index.css">
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-</head>
-<body>
+<?php include "inc/header.php"; ?>
 
   <div class="flex w-full h-screen justify-center items-center bg-[#e8ebed]">
     <div class="w-lg bg-[#ffffff] p-10 rounded-2xl shadow-lg">
@@ -63,5 +53,4 @@
     </div>
   </div>
 
-</body>
-</html>
+<?php include "inc/footer.php"; ?>
