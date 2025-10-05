@@ -19,11 +19,34 @@
   </header>
 
   <div class="flex h-screen justify-center bg-[#e8ebed]">
-    <div class="bg-white flex flex-col gap-6 w-full h-1/2 m-8 p-10 rounded-xl shadow-lg">
+    <div class="bg-white flex flex-col gap-6 w-full h-auto m-8 p-10 rounded-xl shadow-lg">
 
       <div>
         <h1 class="font-bold text-[28px] text-[#333333] mb-2">List of Employees</h1>
         <h3 class="text-[16px] text-[#6B7280] font-semibold">See all employees information.</h3>
+      </div>
+
+      <div class="mt-5 flex justify-between items-center">
+
+        <div class="flex gap-3 w-1/2">
+          <input type="text" class="p-2 border border-[#e8ebed] w-1/2 focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Search by name or ID...">
+          <button class="flex justify-center items-center gap-1 cursor-pointer bg-[#e05d38] px-5 py-2 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
+            <img src="images/search-icon.png" alt="Search">
+            <span class="text-sm font-semibold text-white">Search</span>
+          </button>
+        </div>
+
+        <div class="flex gap-3 justify-end items-center w-1/2">
+          <label class="font-semibold" for="sort">Sort by:</label>
+          <select class="w-1/4 font-semibold h-8 border border-[#e8ebed] w-1/2 focus:outline-[#e05d38] shadow-sm rounded-xl" name="sort" id="cars">
+            <option value="empid">Employee ID</option>
+            <option value="fname">First Name</option>
+            <option value="lname">Last Name</option>
+            <option value="job">Job Position</option>
+            <option value="salary">Gross Salary</option>
+          </select>
+        </div>
+        
       </div>
 
       <div class="px-8 py-4 border border-[#e8ebed] rounded-xl shadow-sm">

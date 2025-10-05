@@ -1,7 +1,7 @@
 <?php
 
   $username = "admin";
-  $password = "admin123456";
+  $password = "adminadmin";
 
   $err = '';
 
@@ -44,7 +44,7 @@
         <?php echo "<p class='text-red-500'>" . $err ?: $err . "</p>" ?>
 
         <div class="flex justify-end items-center gap-3 mt-3">
-          <button class="px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]" type="button">Clear All</button>
+          <button class="px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]" name="clear" type="button">Clear All</button>
           <button class="px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold bg-[#e05d38] text-white transition ease-in hover:bg-[#DD4B22]" name="submit">Log In</button>
         </div>
 
