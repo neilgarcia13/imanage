@@ -9,10 +9,13 @@
         </a>    
 
         <div>
-          <button class="flex justify-center items-center gap-2 cursor-pointer bg-[#e05d38] w-full px-5 py-3 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
-            <img src="images/add-icon.png" class="text-white" alt="add-icon" width="24px">
-            <span class="text-sm font-semibold text-white">Add Employee</span>
-          </button>
+          <a href="add_employee.php">
+            <button class="flex justify-center items-center gap-2 cursor-pointer bg-[#e05d38] w-full px-5 py-3 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
+              <img src="images/add-icon.png" class="text-white" alt="add-icon" width="24px">
+              <span class="text-sm font-semibold text-white">Add Employee</span>
+            </button>
+          </a>
+          
         </div>
       </div>
     </nav>
@@ -38,7 +41,7 @@
 
         <div class="flex gap-3 justify-end items-center w-1/2">
           <label class="font-semibold" for="sort">Sort by:</label>
-          <select class="w-1/4 font-semibold h-8 border border-[#e8ebed] w-1/2 focus:outline-[#e05d38] shadow-sm rounded-xl" name="sort" id="cars">
+          <select class="w-1/4 font-semibold h-8 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" name="sort">
             <option value="empid">Employee ID</option>
             <option value="fname">First Name</option>
             <option value="lname">Last Name</option>
