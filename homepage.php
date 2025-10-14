@@ -1,5 +1,28 @@
 <?php include "inc/header.php"; ?>
 
+  <?php 
+
+    try {
+
+      require_once "inc/dbh.php";
+
+      $query = "SELECT * FROM employee_tbl";
+
+      $stmt = $pdo->prepare($query);
+
+      $stmt->execute();
+
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+      $pdo = null;
+      $stmt = null;
+
+    } catch (PDOException $err) {
+      die("Query failed: " . $err->getMessage());
+    }
+  
+  ?>
+
   <header>
     <nav class="bg-[#e8ebed]">
       <div class="mx-8 px-10 py-5 flex justify-between items-center rounded-full bg-white">
@@ -53,6 +76,11 @@
       </div>
 
       <div class="px-8 py-4 border border-[#e8ebed] rounded-xl shadow-sm">
+        <!-- checking if $results is empty -->
+        <?php if(empty($results)): ?>
+          <p class="text-center text-[#333333]">There is no listed employees yet.</p>
+        <?php endif; ?>
+
         <table class="w-full">
           <tr class="text-left border-b border-[#e8ebed]">
             <th class="p-3">Employee ID</th>
@@ -62,33 +90,23 @@
             <th>Gross Salary</th>
             <th class="text-center">Actions</th>
           </tr>
-          <tr class="text-left border-b border-[#e8ebed]">
-            <td class="p-3">001</td>
-            <td>Maria</td>
-            <td>Anders</td>
-            <td>UI/UX Designer</td>
-            <td>$1,450</td>
-            <td>
-              <div class="w-full flex justify-center gap-2">
-                <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Edit</button>
-                <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Delete</button>
-              </div>
-            </td>
-          </tr>
-          <tr class="text-left">
-            <td class="p-3">002</td>
-            <td>Francisco</td>
-            <td>Chang</td>
-            <td>Senior Software Engineer</td>
-            <td>$1,900</td>
-            <td>
-              <div class="w-full flex justify-center gap-2">
-                <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Edit</button>
-                <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Delete</button>
-              </div>
-            </td>
-          </tr>
-        </table>
+
+          <?php foreach($results as $dataRow ): ?>
+            <tr class="text-left border-b border-[#e8ebed]">
+              <td class="p-3"><?php echo $dataRow['id']; ?></td>
+              <td><?php echo $dataRow['first_name']; ?></td>
+              <td><?php echo $dataRow['last_name']; ?></td>
+              <td><?php echo $dataRow['position']; ?></td>
+              <td><?php echo $dataRow['salary']; ?></td>
+              <td>
+                <div class="w-full flex justify-center gap-2">
+                  <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Edit</button>
+                  <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Delete</button>
+                </div>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </table>      
       </div>
 
     </div>
