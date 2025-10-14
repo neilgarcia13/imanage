@@ -1,6 +1,6 @@
 <?php include "inc/header.php"; ?>
 
-  <div class="flex  justify-center bg-[#e8ebed]">
+  <div class="flex h-screen justify-center bg-[#e8ebed]">
     <div class="bg-white flex flex-col gap-6 w-full h-[540px] m-8 p-10 rounded-xl shadow-lg">
 
       <div>
@@ -9,7 +9,7 @@
       </div>
 
       <div class="px-40 py-8 w-auto border border-[#e8ebed] rounded-xl shadow-sm">
-        <form class="w-full" method="post">
+        <form action="inc/form_handler.php" class="w-full" method="post">
           <div class="grid grid-cols-2 gap-10">
 
             <div class="flex flex-col gap-2">
@@ -26,13 +26,12 @@
               <label class="font-bold text-[#333333]" for="first_name">Job Position</label>
               <select class="h-10 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" name="position">
                 <optgroup label="Choose a position">
-                  <option value="senior_softeng">Senior Software Engineer</option>
-                  <option value="junior_softeng">Junior Software Engineer</option>
-                  <option value="ui_ux">UI/UX Developer</option>
-                  <option value="pm">Project Manager</option>
-                  <option value="db_admin">Database Administrator</option>
+                  <option value="Senior Software Engineer">Senior Software Engineer</option>
+                  <option value="Junior Software Engineer">Junior Software Engineer</option>
+                  <option value="UI/UX Developer">UI/UX Developer</option>
+                  <option value="Project Manager">Project Manager</option>
+                  <option value="Database Administrator">Database Administrator</option>
                 </optgroup>
-                
               </select>
             </div>
 
