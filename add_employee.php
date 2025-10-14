@@ -36,25 +36,25 @@
             </div>
 
             <div class="flex flex-col gap-2">
-              <label class="font-bold text-[#333333]" for="first_name">Gross Salary</label>
+              <label class="font-bold text-[#333333]" for="salary">Gross Salary</label>
               <select class="h-10 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" name="salary">
               <optgroup label="Choose salary">
-                <option value="Under PHP 50K">Under PHP 25K</option>
-                <option value="PHP 50K - 60K">PHP 30K - 40K</option>
-                <option value="PHP 60K - 70K">PHP 40K - PHP 50K</option>
-                <option value="PHP 70K - 80K">PHP 50K - PHP 60K</option>
-                <option value="PHP 80K - 90K">PHP 60K - PHP 70K</option>
-                <option value="PHP 90K - 100K">PHP 70K - PHP 80K</option>
-                <option value="PHP 100K - 125K">PHP 80K - PHP 90K</option>
-                <option value="PHP 125K - 150K">PHP 90K - PHP 100K</option>
-                <option value="Over PHP 200K">Over PHP 100K</option>
+                <option value="Under PHP 25K">Under PHP 25K</option>
+                <option value="PHP 30K - 40K">PHP 30K - 40K</option>
+                <option value="PHP 40K - 50K">PHP 40K - 50K</option>
+                <option value="PHP 50K - 60K">PHP 50K - 60K</option>
+                <option value="PHP 60K - 70K">PHP 60K - 70K</option>
+                <option value="PHP 70K - 80K">PHP 70K - 80K</option>
+                <option value="PHP 80K - 90K">PHP 80K - 90K</option>
+                <option value="PHP 90K - 100K">PHP 90K - 100K</option>
+                <option value="Over PHP 100K">Over PHP 100K</option>
               </optgroup>
               </select>
             </div>
 
             <div class="flex gap-3 justify-end col-2">
               <input class="bg-[#d6e4f0] rounded-lg shadow-lg text-sm font-semibold px-5 py-2 cursor-pointer" type="reset" value="Reset">
-              <input class="cursor-pointer bg-[#e05d38] px-4 py-2 rounded-lg shadow-lg transition ease-in hover:bg-[#DD4B22] text-sm font-semibold text-white" type="submit" value="Insert to Table">
+              <input class="cursor-pointer bg-[#e05d38] px-4 py-2 rounded-lg shadow-lg transition ease-in hover:bg-[#DD4B22] text-sm font-semibold text-white" type="submit" value="Insert to Table" name="add">
             </div>
             
           </div>
