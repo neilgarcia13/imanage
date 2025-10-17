@@ -11,6 +11,7 @@ if (isset($_GET["id"])) {
 
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(":id", $id);
+
     $stmt->execute(); 
     
     $pdo = null;

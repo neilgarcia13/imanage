@@ -13,6 +13,7 @@
 
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(":id", $id);
+
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);     
@@ -37,7 +38,7 @@
       </div>
 
       <div class="px-40 py-8 w-auto border border-[#e8ebed] rounded-xl shadow-sm">
-        <form action="inc/form_handler.php" class="w-full" method="post">
+        <form onsubmit="return confirm('Changes will be saved.');" action="inc/form_handler.php" class="w-full" method="post">
           <div class="grid grid-cols-2 gap-10">
 
            <!-- use to fetch id in database -->

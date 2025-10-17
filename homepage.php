@@ -100,7 +100,7 @@
                     <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Edit</button>
                   </a>
 
-                  <a href="delete_employee.php?id=<?php echo $dataRow['id']; ?>">
+                  <a onclick="return confirm('Are you sure you want to delete this employee?');" href="delete_employee.php?id=<?php echo $dataRow['id']; ?>">
                     <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Delete</button>
                   </a>
                 </div>
