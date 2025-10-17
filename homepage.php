@@ -76,10 +76,6 @@
       </div>
 
       <div class="px-8 py-4 border border-[#e8ebed] rounded-xl shadow-sm">
-        <!-- checking if $results is empty -->
-        <?php if(empty($results)): ?>
-          <p class="text-center text-[#333333]">There is no listed employees yet.</p>
-        <?php endif; ?>
 
         <table class="w-full">
           <tr class="text-left border-b border-[#e8ebed]">
@@ -111,7 +107,13 @@
               </td>
             </tr>
           <?php endforeach; ?>
-        </table>      
+        </table>    
+        
+        <!-- checking if $results is empty -->
+        <?php if(empty($results)): ?>
+          <p class="text-center text-[#333333] p-5">There is no listed employees yet.</p>
+        <?php endif; ?>
+
       </div>
 
     </div>
