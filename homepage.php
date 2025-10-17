@@ -91,7 +91,7 @@
             <th class="text-center">Actions</th>
           </tr>
 
-          <?php foreach($results as $dataRow ): ?>
+          <?php foreach($results as $dataRow): ?>
             <tr class="text-left border-b border-[#e8ebed]">
               <td class="p-3"><?php echo $dataRow['id']; ?></td>
               <td><?php echo $dataRow['first_name']; ?></td>
@@ -103,7 +103,10 @@
                   <a href="edit_employee.php?id=<?php echo $dataRow['id']; ?>">
                     <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Edit</button>
                   </a>
-                  <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Delete</button>
+
+                  <a href="delete_employee.php?id=<?php echo $dataRow['id']; ?>">
+                    <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Delete</button>
+                  </a>
                 </div>
               </td>
             </tr>
