@@ -1,24 +1,59 @@
 <?php include "inc/header.php"; ?>
 
-  <?php 
+  <?php
 
-    try {
+    $results = [];
 
-      require_once "inc/dbh.php";
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-      $query = "SELECT * FROM employee_tbl";
+      $search = htmlspecialchars($_POST["search"]);
 
-      $stmt = $pdo->prepare($query);
+      if (!empty($search)) {
 
-      $stmt->execute();
+        try {
 
-      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          require_once "inc/dbh.php";
 
-      $pdo = null;
-      $stmt = null;
+          $query = "SELECT * FROM employee_tbl WHERE id = :search OR first_name = :search OR last_name = :search;";
 
-    } catch (PDOException $err) {
-      die("Query failed: " . $err->getMessage());
+          $stmt = $pdo->prepare($query);
+          $stmt->bindParam(":search", $search);
+          $stmt->execute();
+
+          global $results;
+          $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          $pdo = null;
+          $stmt = null;
+
+        } catch (PDOException $err) {
+          die("Query failed: " . $err->getMessage());
+        }
+
+      } else {
+
+        try {
+
+          require_once "inc/dbh.php";
+
+          $query = "SELECT * FROM employee_tbl";
+
+          $stmt = $pdo->prepare($query);
+
+          $stmt->execute();
+
+          global $results;
+          $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          $pdo = null;
+          $stmt = null;
+
+        } catch (PDOException $err) {
+          die("Query failed: " . $err->getMessage());
+        }
+
+      }
+
     }
   
   ?>
@@ -53,14 +88,14 @@
       </div>
 
       <div class="mt-5 flex justify-between items-center">
-
-        <div class="flex gap-3 w-1/2">
-          <input type="text" class="p-2 border border-[#e8ebed] w-1/2 focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Search by name or ID...">
+        
+        <form class="flex gap-3 w-1/2" method="post">
+          <input type="text" name="search" class="p-2 border border-[#e8ebed] w-1/2 focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Search by name or ID...">
           <button class="flex justify-center items-center gap-1 cursor-pointer bg-[#e05d38] px-5 py-2 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
             <img src="images/search-icon.png" alt="Search">
             <span class="text-sm font-semibold text-white">Search</span>
           </button>
-        </div>
+        </form>
 
         <div class="flex gap-3 justify-end items-center w-1/2">
           <label class="font-semibold" for="sort">Sort by:</label>

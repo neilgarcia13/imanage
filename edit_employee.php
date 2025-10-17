@@ -41,7 +41,7 @@
         <form onsubmit="return confirm('Changes will be saved.');" action="inc/form_handler.php" class="w-full" method="post">
           <div class="grid grid-cols-2 gap-10">
 
-           <!-- use to fetch id in database -->
+            <!-- use to fetch id in database -->
             <input type="hidden" name="id" value="<?php echo $result["id"]; ?>">
 
             <div class="flex flex-col gap-2">
