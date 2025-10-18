@@ -3,9 +3,19 @@
   <div class="flex h-screen justify-center bg-[#e8ebed]">
     <div class="bg-white flex flex-col gap-6 w-full h-[540px] m-8 p-10 rounded-xl shadow-lg">
 
-      <div>
-        <h1 class="font-bold text-[28px] text-[#333333] mb-2">Add Employee</h1>
-        <h3 class="text-[16px] text-[#6B7280] font-semibold">Enter details of an employee.</h3>
+      <div class="flex justify-between">
+        <div>
+          <h1 class="font-bold text-[28px] text-[#333333] mb-2">Add Employee</h1>
+          <h3 class="text-[16px] text-[#6B7280] font-semibold">Enter details of an employee.</h3>
+        </div>
+        <div>
+          <a href="homepage.php">
+            <button type="reset" class="flex justify-center items-center gap-2 px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]">
+              <img src="images/back-icon.png" class="text-white" alt="bavk-icon" width="24px">
+              <span>Back to Homepage</span>
+            </button>
+          </a>
+        </div>
       </div>
 
       <div class="px-40 py-8 w-auto border border-[#e8ebed] rounded-xl shadow-sm">

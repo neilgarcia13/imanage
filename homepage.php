@@ -116,7 +116,7 @@
         <div>
           <a onclick="return confirm('Are you sure you want to log out?');" href="login.php">
             <button type="reset" class="flex justify-center items-center gap-2 px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]">
-              <img src="images/logout-icon.png" class="text-white" alt="add-icon" width="24px">
+              <img src="images/logout-icon.png" class="text-white" alt="logout-icon" width="24px">
               <span>Log Out</span>
             </button>
           </a>
