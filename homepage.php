@@ -5,31 +5,24 @@
     $results = [];
     $err = "";
 
-    function executeQuery() {
+    try {
 
-      try {
+      include "inc/dbh.php";
 
-        include "inc/dbh.php";
+      $query = "SELECT * FROM employee_tbl;";
 
-        $query = "SELECT * FROM employee_tbl;";
+      $stmt = $pdo->prepare($query);
+      $stmt->execute();
 
-        $stmt = $pdo->prepare($query);
-        $stmt->execute();
+      global $results;
+      $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        global $results;
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+      $pdo = null;
+      $stmt = null;
 
-        $pdo = null;
-        $stmt = null;
-
-
-      } catch (PDOException $err) {
-        die("Query failed: " . $err->getMessage()); 
-      }
-
+    } catch (PDOException $err) {
+      die("Query failed: " . $err->getMessage()); 
     }
-
-    executeQuery();
 
     if (isset($_GET["search"])) {
 
@@ -64,7 +57,31 @@
       }
 
     }
-    
+
+    if (isset($_POST["sort"])) {
+
+      $selectedSort = $_POST["sort"];
+
+      try {
+
+        include "inc/dbh.php";
+
+        $query = "SELECT * FROM employee_tbl ORDER BY $selectedSort ASC;";
+
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        global $results;
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $pdo = null;
+        $stmt = null;
+
+      } catch (PDOException $err) {
+        die("Query failed: " . $err->getMessage());
+      }
+
+    }
   ?>
 
   <header>
@@ -106,13 +123,13 @@
           </button>
         </form>
 
-        <form method="post" class="flex gap-3 justify-end items-center w-1/2">
-          <label class="font-semibold" for="sort">Sort by:</label>
+        <form action="homepage.php" class="flex gap-3 justify-end items-center w-1/2" method="post">
           <select name="sort" class="w-1/4 font-semibold h-8 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl">
             <option value="id">Employee ID</option>
             <option value="first_name">First Name</option>
             <option value="last_name">Last Name</option>
           </select>
+          <input type="submit" value="Sort" class="bg-[#e05d38] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer">
         </form>
         
       </div>
@@ -141,11 +158,11 @@
               <td>
                 <div class="w-full flex justify-center gap-2">
                   <a href="edit_employee.php?id=<?php echo $dataRow['id']; ?>">
-                    <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Edit</button>
+                    <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer">Edit</button>
                   </a>
 
                   <a onclick="return confirm('Are you sure you want to delete this employee?');" href="delete_employee.php?id=<?php echo $dataRow['id']; ?>">
-                    <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer duration-500 ease-out hover:grow">Delete</button>
+                    <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer">Delete</button>
                   </a>
                 </div>
               </td>
