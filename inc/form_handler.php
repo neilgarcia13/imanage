@@ -7,7 +7,6 @@ if (isset($_POST["add"])) {
   $jobPosition = $_POST["position"];
   $grossSalary = $_POST["salary"];
 
-
   try {
 
     require_once "dbh.php";
@@ -33,7 +32,6 @@ if (isset($_POST["add"])) {
   } catch (PDOException $err) {
     die("Query failed: " . $err->getMessage());
   }
-
 
 }
 
@@ -71,6 +69,5 @@ if (isset($_POST["edit"])) {
   } catch (PDOException $err) {
     die("Query failed: " . $err->getMessage());
   }
-
 
 }

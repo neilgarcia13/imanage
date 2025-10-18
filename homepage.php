@@ -3,16 +3,47 @@
   <?php
 
     $results = [];
+    $err = "";
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    function executeQuery() {
 
-      $search = htmlspecialchars($_POST["search"]);
+      try {
 
-      if (!empty($search)) {
+        include "inc/dbh.php";
+
+        $query = "SELECT * FROM employee_tbl;";
+
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+
+        global $results;
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $pdo = null;
+        $stmt = null;
+
+
+      } catch (PDOException $err) {
+        die("Query failed: " . $err->getMessage()); 
+      }
+
+    }
+
+    executeQuery();
+
+    if (isset($_GET["search"])) {
+
+      $search = htmlspecialchars($_GET["search"]);
+
+      if (empty($search)) {
+
+        $err = "Please search an employee first.";
+
+      } else {
 
         try {
 
-          require_once "inc/dbh.php";
+          include "inc/dbh.php";
 
           $query = "SELECT * FROM employee_tbl WHERE id = :search OR first_name = :search OR last_name = :search;";
 
@@ -30,32 +61,10 @@
           die("Query failed: " . $err->getMessage());
         }
 
-      } else {
-
-        try {
-
-          require_once "inc/dbh.php";
-
-          $query = "SELECT * FROM employee_tbl";
-
-          $stmt = $pdo->prepare($query);
-
-          $stmt->execute();
-
-          global $results;
-          $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-          $pdo = null;
-          $stmt = null;
-
-        } catch (PDOException $err) {
-          die("Query failed: " . $err->getMessage());
-        }
-
       }
 
     }
-  
+    
   ?>
 
   <header>
@@ -89,26 +98,26 @@
 
       <div class="mt-5 flex justify-between items-center">
         
-        <form class="flex gap-3 w-1/2" method="post">
+        <form action="homepage.php" class="flex gap-3 w-1/2" method="get">
           <input type="text" name="search" class="p-2 border border-[#e8ebed] w-1/2 focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Search by name or ID...">
-          <button class="flex justify-center items-center gap-1 cursor-pointer bg-[#e05d38] px-5 py-2 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
+          <button type="submit" class="flex justify-center items-center gap-1 cursor-pointer bg-[#e05d38] px-5 py-2 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
             <img src="images/search-icon.png" alt="Search">
             <span class="text-sm font-semibold text-white">Search</span>
           </button>
         </form>
 
-        <div class="flex gap-3 justify-end items-center w-1/2">
+        <form method="post" class="flex gap-3 justify-end items-center w-1/2">
           <label class="font-semibold" for="sort">Sort by:</label>
-          <select class="w-1/4 font-semibold h-8 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" name="sort">
-            <option value="empid">Employee ID</option>
-            <option value="fname">First Name</option>
-            <option value="lname">Last Name</option>
-            <option value="job">Job Position</option>
-            <option value="salary">Gross Salary</option>
+          <select name="sort" class="w-1/4 font-semibold h-8 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl">
+            <option value="id">Employee ID</option>
+            <option value="first_name">First Name</option>
+            <option value="last_name">Last Name</option>
           </select>
-        </div>
+        </form>
         
       </div>
+
+      <p class="text-[#ef4444] text-sm"><?php echo $err ?: $err; ?></p>
 
       <div class="px-8 py-4 border border-[#e8ebed] rounded-xl shadow-sm">
 
