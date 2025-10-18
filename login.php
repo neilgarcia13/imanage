@@ -5,12 +5,12 @@
 
   $err = '';
 
-  if (isset($_POST["submit"]) && empty($_POST["username"] && empty($_POST["password"]))) {
+  if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $usernameInput = htmlspecialchars($_POST["username"]);
-    $passwordInput = htmlspecialchars($_POST["password"]);
+    if (!empty($_POST["username"]) && !empty($_POST["username"])) {
 
-    if (!empty($usernameInput) && !empty($passwordInput)) {
+      $usernameInput = htmlspecialchars($_POST["username"]);
+      $passwordInput = htmlspecialchars($_POST["password"]);
 
       if ($usernameInput === $username && $passwordInput === $password) {
 
@@ -18,9 +18,9 @@
 
       } else $err = "Username or password is incorrect.";
 
-    }
+    } else $err = 'Username or password is empty.';
 
-  } else $err = "Username or password is empty.";
+  }
 
 ?>
 
@@ -36,16 +36,16 @@
       <form class="flex flex-col gap-3 py-3" method="post">
 
         <label class="text-[#333333] font-bold" for="username">Username</label>
-        <input type="text" class="p-2 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" name="username" id="username" placeholder="Enter username...">
+        <input type="text" name="username" id="username" class="p-2 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter username...">
 
         <label class="text-[#333333] font-bold" for="password">Password</label>
-        <input type="password" class="p-2 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" name="password" id="password" placeholder="Enter password...">
+        <input type="password" name="password" id="password" class="p-2 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter password...">
 
-        <?php echo "<p class='text-red-500'>" . $err ?: $err . "</p>" ?>
+        <p class="text-red-500"><?php echo $err ?: $err; ?></p>
 
         <div class="flex justify-end items-center gap-3 mt-3">
-          <button class="px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]" name="clear" type="button">Clear All</button>
-          <button class="px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold bg-[#e05d38] text-white transition ease-in hover:bg-[#DD4B22]" name="submit">Log In</button>
+          <button type="reset" class="px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]">Clear All</button>
+          <button class="px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold bg-[#e05d38] text-white transition ease-in hover:bg-[#DD4B22]" type="submit">Log In</button>
         </div>
 
       </form>
