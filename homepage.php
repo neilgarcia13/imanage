@@ -108,9 +108,19 @@
   <div class="flex h-screen justify-center bg-[#e8ebed]">
     <div class="bg-white flex flex-col gap-6 w-full h-auto m-8 p-10 rounded-xl shadow-lg">
 
-      <div>
-        <h1 class="font-bold text-[28px] text-[#333333] mb-2">List of Employees</h1>
-        <h3 class="text-[16px] text-[#6B7280] font-semibold">See all employees information.</h3>
+      <div class="flex justify-between">
+        <div>
+          <h1 class="font-bold text-[28px] text-[#333333] mb-2">List of Employees</h1>
+          <h3 class="text-[16px] text-[#6B7280] font-semibold">See all employees information.</h3>
+        </div>
+        <div>
+          <a onclick="return confirm('Are you sure you want to log out?');" href="login.php">
+            <button type="reset" class="flex justify-center items-center gap-2 px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]">
+              <img src="images/logout-icon.png" class="text-white" alt="add-icon" width="24px">
+              <span>Log Out</span>
+            </button>
+          </a>
+        </div>
       </div>
 
       <div class="mt-5 flex justify-between items-center">
