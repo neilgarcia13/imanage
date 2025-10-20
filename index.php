@@ -27,9 +27,9 @@
 <?php include "inc/header.php"; ?>
 
   <div class="flex w-full h-screen justify-center items-center bg-[#e8ebed]">
-    <div class="w-lg bg-[#ffffff] p-10 rounded-2xl shadow-lg">
+    <div class="w-xs sm:w-lg bg-[#ffffff] p-10 rounded-2xl shadow-lg">
       <p class="text-2xl text-[#333333] font-semibold mb-3">Log In</p>
-      <p class="text-base text-[#6b7280] mt-0 mb-3">Enter admin's username and pasword</p>
+      <p class="text-sm sm:text-base text-[#6b7280] mt-0 mb-3">Enter admin's username and pasword</p>
 
       <div class="w-full h-[1px] mb-3 bg-[#6b7280]"></div>
 

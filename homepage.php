@@ -89,14 +89,14 @@
       <div class="mx-8 px-10 py-5 flex justify-between items-center rounded-full bg-white">
         <a href="homepage.php" class="flex justify-center items-center gap-2">
           <img src="images/imanage-logo.png" alt="iManage" width="48px">
-          <span class="font-bold text-3xl text-[#333333]">iManage</span>
+          <span class="hidden sm:block font-bold text-3xl text-[#333333]">iManage</span>
         </a>    
 
         <div>
           <a href="add_employee.php">
-            <button class="flex justify-center items-center gap-2 cursor-pointer bg-[#e05d38] w-full px-5 py-3 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
+            <button class="flex justify-center items-center gap-2 cursor-pointer bg-[#e05d38] w-full px-3 sm:px-5 py-3 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
               <img src="images/add-icon.png" class="text-white" alt="add-icon" width="24px">
-              <span class="text-sm font-semibold text-white">Add Employee</span>
+              <span class="text-xs sm:text-sm font-semibold text-white">Add Employee</span>
             </button>
           </a>
           
@@ -110,31 +110,31 @@
 
       <div class="flex justify-between">
         <div>
-          <h1 class="font-bold text-[28px] text-[#333333] mb-2">List of Employees</h1>
-          <h3 class="text-[16px] text-[#6B7280] font-semibold">See all employees information.</h3>
+          <h1 class="font-bold text-[22px] sm:text-[28px] text-[#333333] mb-2">List of Employees</h1>
+          <h3 class="text-[14px] sm:text-[16px] text-[#6B7280] font-semibold">See all employees information.</h3>
         </div>
         <div>
           <a onclick="return confirm('Are you sure you want to log out?');" href="index.php">
-            <button type="reset" class="flex justify-center items-center gap-2 px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]">
+            <button type="reset" class="flex justify-center items-center gap-2 px-2 sm:px-4 py-2 rounded-xl shadow-sm cursor-pointer text-sm font-semibold transition ease-in hover:text-[#1e3a8a] hover:bg-[#d6e4f0]">
               <img src="images/logout-icon.png" class="text-white" alt="logout-icon" width="24px">
-              <span>Log Out</span>
+              <span class="text-xs sm:text-sm">Log Out</span>
             </button>
           </a>
         </div>
       </div>
 
-      <div class="mt-5 flex justify-between items-center">
+      <div class="mt-5 gap-3 flex flex-wrap sm:flex-nowrap justify-start md:justify-between items-center">
         
         <form action="homepage.php" class="flex gap-3 w-1/2" method="get">
-          <input type="text" name="search" class="p-2 border border-[#e8ebed] w-1/2 focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Search by name or ID...">
-          <button type="submit" class="flex justify-center items-center gap-1 cursor-pointer bg-[#e05d38] px-5 py-2 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
+          <input type="text" name="search" class="p-2 text-xs sm:text-base border border-[#e8ebed] w-1/2 shrink-0 focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Search by name or ID...">
+          <button type="submit" class="flex justify-center items-center gap-1 cursor-pointer bg-[#e05d38] px-5 rounded-full shadow-lg transition ease-in hover:bg-[#DD4B22]">
             <img src="images/search-icon.png" alt="Search">
-            <span class="text-sm font-semibold text-white">Search</span>
+            <span class="text-xs font-semibold text-white">Search</span>
           </button>
         </form>
 
-        <form action="homepage.php" class="flex gap-3 justify-end items-center w-1/2" method="post">
-          <select name="sort" class="w-1/4 font-semibold h-8 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl">
+        <form action="homepage.php" class="flex gap-3 justify-start md:justify-end items-center w-1/2" method="post">
+          <select name="sort" class="w-1/2 md:w-1/4 text-xs sm:text-base font-semibold h-8 border border-[#e8ebed] focus:outline-[#e05d38] shadow-sm rounded-xl">
             <option value="id">Employee ID</option>
             <option value="first_name">First Name</option>
             <option value="last_name">Last Name</option>
@@ -149,30 +149,30 @@
       <div class="px-8 py-4 border border-[#e8ebed] rounded-xl shadow-sm">
 
         <table class="w-full">
-          <tr class="text-left border-b border-[#e8ebed]">
+          <tr class="text-left text-sm md:text-base border-b border-[#e8ebed]">
             <th class="p-3">Employee ID</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Job Position</th>
-            <th>Gross Salary</th>
+            <th class="sr-only sm:not-sr-only">Job Position</th>
+            <th class="sr-only sm:not-sr-only">Gross Salary</th>
             <th class="text-center">Actions</th>
           </tr>
 
           <?php foreach($results as $dataRow): ?>
-            <tr class="text-left border-b border-[#e8ebed]">
+            <tr class="text-left text-sm md:text-base border-b border-[#e8ebed]">
               <td class="p-3"><?php echo $dataRow['id']; ?></td>
               <td><?php echo $dataRow['first_name']; ?></td>
               <td><?php echo $dataRow['last_name']; ?></td>
-              <td><?php echo $dataRow['position']; ?></td>
-              <td><?php echo $dataRow['salary']; ?></td>
+              <td class="sr-only sm:not-sr-only"><?php echo $dataRow['position']; ?></td>
+              <td class="sr-only sm:not-sr-only"><?php echo $dataRow['salary']; ?></td>
               <td>
                 <div class="w-full flex justify-center gap-2">
                   <a href="edit_employee.php?id=<?php echo $dataRow['id']; ?>">
-                    <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-4 cursor-pointer">Edit</button>
+                    <button class="bg-[#d6e4f0] rounded-lg font-semibold py-1 px-2 md:px-4 cursor-pointer">Edit</button>
                   </a>
 
                   <a onclick="return confirm('Are you sure you want to delete this employee?');" href="delete_employee.php?id=<?php echo $dataRow['id']; ?>">
-                    <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-4 cursor-pointer">Delete</button>
+                    <button class="bg-[#ef4444] text-white rounded-lg font-semibold py-1 px-2 md:px-4 cursor-pointer">Delete</button>
                   </a>
                 </div>
               </td>
