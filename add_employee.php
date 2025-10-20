@@ -1,5 +1,58 @@
 <?php include "inc/header.php"; ?>
 
+  <?php 
+
+    $firstName = $lastName = $jobPosition = $grossSalary = "";
+    $firstNameErr = $lastNameErr = $jobPositionErr = $grossSalaryErr = "";
+  
+    if (isset($_POST["add"])) {
+
+      if (empty($_POST["first_name"])) $firstNameErr = "First name is required.";
+      else $firstName = htmlspecialchars($_POST["first_name"]);
+
+      if (empty($_POST["last_name"])) $lastNameErr = "Last name is required.";
+      else $lastName = htmlspecialchars($_POST["last_name"]);
+
+      if (empty($_POST["position"])) $jobPositionErr = "Position is required.";
+      else $jobPosition = htmlspecialchars($_POST["position"]);
+
+      if (empty($_POST["salary"])) $grossSalaryErr = "First name is required.";
+      else $grossSalary = htmlspecialchars($_POST["salary"]);
+
+      if (empty($firstNameErr) && empty($lastNameErr) && empty($jobPositionErr) && empty($grossSalaryErr)) {
+
+        try {
+
+          require_once "inc/dbh.php";
+
+          $query = "INSERT INTO employee_tbl (first_name, last_name, position, salary) VALUES (:firstName, :lastName, :jobPosition, :grossSalary);";
+
+          $stmt = $pdo->prepare($query);
+
+          $stmt->bindParam(":firstName", $firstName);
+          $stmt->bindParam(":lastName", $lastName);
+          $stmt->bindParam(":jobPosition", $jobPosition);
+          $stmt->bindParam(":grossSalary", $grossSalary);
+
+          $stmt->execute();
+
+          $pdo = null;
+          $stmt = null;
+
+          header("Location: homepage.php");
+
+          die();
+
+        } catch (PDOException $err) {
+          die("Query failed: " . $err->getMessage());
+        }
+
+      }
+
+    }
+  
+  ?>
+
   <div class="flex h-screen justify-center bg-[#e8ebed]">
     <div class="bg-white flex flex-col gap-6 w-full h-[540px] m-8 p-10 rounded-xl shadow-lg">
 
@@ -19,17 +72,19 @@
       </div>
 
       <div class="px-5 md:px-40 py-8 w-auto border border-[#e8ebed] rounded-xl shadow-sm">
-        <form action="inc/form_handler.php" class="w-full" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="w-full" method="post">
           <div class="grid grid-cols-2 gap-10">
 
             <div class="flex flex-col gap-2">
               <label class="font-bold text-xs sm:text-base text-[#333333]" for="first_name">First Name</label>
               <input class="p-2 border border-[#e8ebed] text-xs sm:text-base w-full focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter first name..." type="text" id="first_name" name="first_name">
+              <p class="text-[#ef4444] text-sm"><?php echo $firstNameErr ?: $firstNameErr; ?></p>
             </div>
 
             <div class="flex flex-col gap-2">
               <label class="font-bold text-xs sm:text-base text-[#333333]" for="first_name">Last Name</label>
               <input class="p-2 border border-[#e8ebed] text-xs sm:text-base  w-full focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter last name..." type="text" id="last_name" name="last_name">
+              <p class="text-[#ef4444] text-sm"><?php echo $lastNameErr ?: $lastNameErr; ?></p>
             </div>
 
             <div class="flex flex-col gap-2">
@@ -43,6 +98,7 @@
                   <option value="Database Administrator">Database Administrator</option>
                 </optgroup>
               </select>
+              <p class="text-[#ef4444] text-sm"><?php echo $jobPositionErr ?: $jobPositionErr; ?></p>
             </div>
 
             <div class="flex flex-col gap-2">
@@ -60,6 +116,7 @@
                 <option value="Over PHP 100K">Over PHP 100K</option>
               </optgroup>
               </select>
+              <p class="text-[#ef4444] text-sm"><?php echo $grossSalaryErr ?: $grossSalaryErr; ?></p>
             </div>
 
             <div class="flex gap-3 justify-end col-2">

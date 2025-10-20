@@ -2,11 +2,16 @@
 
   <?php 
 
+    $firstName = $lastName = $jobPosition = $grossSalary = "";
+    $id = $firstNameErr = $lastNameErr = $jobPositionErr = $grossSalaryErr = "";
+
+    $result = [];
+
     if (isset($_GET["id"])) {
 
       try {
 
-        require_once "inc/dbh.php";
+        include "inc/dbh.php";
 
         $id = $_GET["id"];
         $query = "SELECT * FROM employee_tbl WHERE id = :id;";
@@ -15,8 +20,7 @@
         $stmt->bindParam(":id", $id);
 
         $stmt->execute();
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);     
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         
         $pdo = null;
         $stmt = null;
@@ -25,6 +29,56 @@
         die("Query failed: " . $err->getMessage());
       }
       
+    }
+
+    if (isset($_POST["edit"])) {
+
+      if (empty($_POST["id"])) $firstNameErr = "ID is required.";
+      else $id = htmlspecialchars($_POST["id"]);
+
+      if (empty($_POST["first_name"])) $firstNameErr = "First name is required.";
+      else $firstName = htmlspecialchars($_POST["first_name"]);
+
+      if (empty($_POST["last_name"])) $lastNameErr = "Last name is required.";
+      else $lastName = htmlspecialchars($_POST["last_name"]);
+
+      if (empty($_POST["position"])) $jobPositionErr = "Position is required.";
+      else $jobPosition = htmlspecialchars($_POST["position"]);
+
+      if (empty($_POST["salary"])) $grossSalaryErr = "First name is required.";
+      else $grossSalary = htmlspecialchars($_POST["salary"]);
+
+      if (empty($firstNameErr) && empty($lastNameErr) && empty($jobPositionErr) && empty($grossSalaryErr)) {
+
+        try {
+
+          include "inc/dbh.php";
+
+          $query = "UPDATE employee_tbl SET first_name = :firstName, last_name = :lastName, position = :jobPosition, salary = :grossSalary WHERE id = :id";
+
+          $stmt = $pdo->prepare($query);
+
+          $stmt->bindParam(":firstName", $firstName);
+          $stmt->bindParam(":lastName", $lastName);
+          $stmt->bindParam(":jobPosition", $jobPosition);
+          $stmt->bindParam(":grossSalary", $grossSalary);
+          $stmt->bindParam(":id", $id);
+
+          $stmt->execute();
+
+          $pdo = null;
+          $stmt = null;
+
+          header("Location: homepage.php");
+
+          die();
+
+        } catch (PDOException $err) {
+          die("Query failed: " . $err->getMessage());
+        }
+
+      }
+
     }
   
   ?>
@@ -48,20 +102,22 @@
       </div>
 
       <div class="px-5 md:px-40 py-8 w-auto border border-[#e8ebed] rounded-xl shadow-sm">
-        <form onsubmit="return confirm('Changes will be saved.');" action="inc/form_handler.php" class="w-full" method="post">
+        <form onsubmit="return confirm('Changes will be saved.');" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="w-full" method="post">
           <div class="grid grid-cols-2 gap-10">
 
             <!-- use to fetch id in database -->
-            <input type="hidden" name="id" value="<?php echo $result["id"]; ?>">
+            <input type="hidden" name="id" value="<?php echo $result['id'] ?? ''; ?>">
 
             <div class="flex flex-col gap-2">
               <label class="font-bold text-xs sm:text-base text-[#333333]" for="first_name">First Name</label>
-              <input class="p-2 border border-[#e8ebed] text-xs sm:text-base w-full focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter first name..." type="text" id="first_name" name="first_name" value="<?php echo $result["first_name"]; ?>">
+              <input required class="p-2 border border-[#e8ebed] text-xs sm:text-base w-full focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter first name..." type="text" id="first_name" name="first_name" value="<?php echo htmlspecialchars($_POST['first_name'] ?? $result['first_name'] ?? ''); ?>">
+              <p class="text-[#ef4444] text-sm"><?php echo $firstNameErr ?: $firstNameErr; ?></p>
             </div>
 
             <div class="flex flex-col gap-2">
               <label class="font-bold text-xs sm:text-base text-[#333333]" for="last_name">Last Name</label>
-              <input class="p-2 border border-[#e8ebed] text-xs sm:text-base w-full focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter last name..." type="text" id="last_name" name="last_name" value="<?php echo $result["last_name"]; ?>">
+              <input required class="p-2 border border-[#e8ebed] text-xs sm:text-base w-full focus:outline-[#e05d38] shadow-sm rounded-xl" placeholder="Enter last name..." type="text" id="last_name" name="last_name" value="<?php echo htmlspecialchars($_POST['last_name'] ?? $result['last_name'] ?? ''); ?>">
+              <p class="text-[#ef4444] text-sm"><?php echo $lastNameErr ?: $lastNameErr; ?></p>
             </div>
 
             <div class="flex flex-col gap-2">
@@ -91,6 +147,7 @@
                   </option>
                 </optgroup>
               </select>
+              <p class="text-[#ef4444] text-sm"><?php echo $jobPositionErr ?: $jobPositionErr; ?></p>
             </div>
 
             <div class="flex flex-col gap-2">
@@ -135,6 +192,7 @@
                   </option>
                 </optgroup>
               </select>
+              <p class="text-[#ef4444] text-sm"><?php echo $grossSalaryErr ?: $grossSalaryErr; ?></p>
             </div>
 
             <div class="flex gap-3 justify-end col-2">
