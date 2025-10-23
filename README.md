@@ -6,7 +6,7 @@ An information management system made by me using vanilla PHP and MySQL.
 
 ## Open in Browser
 
-Navigate to [this link](https://adcamp-dashboard.vercel.app) using the admin's credentials below:
+Navigate to [this link](https://imanage.infinityfreeapp.com/) using the admin's credentials below:
 
 username: admin
 
