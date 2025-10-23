@@ -18,4 +18,4 @@ password: admin
 
 Developed by Neil Andrei S. Garcia
 
-📧 neilgrande2002@gmail.com
+📧: neilgrande2002@gmail.com
