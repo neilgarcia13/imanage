@@ -1,4 +1,4 @@
-# Ad Campaign Dashboard (ADCamp)
+# iManage
 
 An information management system made by me using vanilla PHP and MySQL.
 
